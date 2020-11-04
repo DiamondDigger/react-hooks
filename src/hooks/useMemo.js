@@ -1,6 +1,5 @@
 import './App.css';
-import React, {useState, useEffect, useMemo, useCallback} from 'react'
-import { ItemsList } from './hooks/ItemsList';
+import React, {useState, useEffect, useRef, useMemo} from 'react'
 
 const divStyles = {
   textOverflow: 'ellipsis',
@@ -27,11 +26,18 @@ const buttonStyles = {
   cursor: 'pointer'
 }
 
+const computedByBankDepo = (number) => {
+  let i = 0
+  while (i < 100000) i++
+  console.log('..processing center ready')
+  return number*100
+}
+
 function App() {
-const [number, setNumber] = useState(0)
+const [number, setNumber] = useState(20)
 const [styledColor, setStyledColor] = useState(false)
 
-// useMemo section
+// useMemo sect
 const styledColoredButton = useMemo(() => ({
   background: styledColor ? 'lightblue' : 'pink',
   borderRadius: '50%', 
@@ -39,17 +45,20 @@ const styledColoredButton = useMemo(() => ({
    height: '10%'
 }), [styledColor])
 
+const computedDepo = useMemo(() => {
+  return computedByBankDepo(number)
+}, [number])
+
 useEffect(() => {
   console.log('Changed button color')
 }, [styledColoredButton])
 
-
-
   return (
     <div style={divStyles }>
      <h1>Hello there? Can I help you?</h1>
-     <h2>Bank accaunt: $ {number}</h2>
+     <h2>Bank accaunt: $ {computedDepo}</h2>
       <button onClick={() => setNumber((prev) => prev + 1)} style={buttonStyles}>Add</button>
+      <button onClick={() => setNumber((prev) => prev - 1 )} style={buttonStyles}>Subtract</button>
       <button onClick={() => setStyledColor((prev) => !prev)} style={styledColoredButton}>.</button>
     </div>
   );

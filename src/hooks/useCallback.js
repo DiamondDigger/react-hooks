@@ -43,7 +43,9 @@ useEffect(() => {
   console.log('Changed button color')
 }, [styledColoredButton])
 
-
+const dataFromApi = useCallback(() => {
+  return new Array(number).fill('').map((_, i) => `Item № ${i+1}` )
+}, [number])
 
   return (
     <div style={divStyles }>
@@ -51,6 +53,7 @@ useEffect(() => {
      <h2>Bank accaunt: $ {number}</h2>
       <button onClick={() => setNumber((prev) => prev + 1)} style={buttonStyles}>Add</button>
       <button onClick={() => setStyledColor((prev) => !prev)} style={styledColoredButton}>.</button>
+      <ItemsList getItems={dataFromApi} />
     </div>
   );
 }
