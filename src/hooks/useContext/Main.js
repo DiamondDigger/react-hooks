@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAlert } from './alert/AlertContext'
+import { useAlert } from './hooks/useContext/alert/AlertContext'
 
 const buttonStyles = {
     background: 'lightgreen',
